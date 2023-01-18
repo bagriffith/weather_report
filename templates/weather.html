@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Weather Report</title>
+    <style>
+        .report {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            align-items: stretch;
+            flex-direction: column;
+            margin: auto;
+        }
+
+        .forecast {
+            flex-grow: 4;
+            flex-shrink: 4;
+        }
+
+        .textForecast {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            border-spacing: 10px;
+        }
+        
+
+        h1 {
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="report">
+        <h1>{{ date }}</h1>
+        {% if nws.text %}
+        <div class="forecast">
+            <table class="textForecast">
+                {% for forecast in nws.text %}
+                <tr><td>{{ forecast|safe }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+        {% if nws.graph %}
+        <div class="forecast">
+            {% for url in nws.graph %}
+            <img src="{{ url }}">
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if nws.map %}
+        <div class="forecast">
+            <img src="{{ nws.map }}">
+        </div>
+        {% endif %}
+        {% if clear_sky %}
+        <div class="forecast">
+            <img src="{{ clear_sky.url }}">
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
